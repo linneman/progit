@@ -1,5 +1,4 @@
 # Git Tools #
-# Git Tools #
 
 By now, you’ve learned most of the day-to-day commands and workflows that you need to manage or maintain a Git repository for your source code control.
 You’ve accomplished the basic tasks of tracking and committing files, and you’ve harnessed the power of the staging area and lightweight topic branching and merging.
@@ -10,21 +9,18 @@ Now you’ll explore a number of very powerful things that Git can do that you m
 
 Als nächstes werden wir einige sehr mächtige Werkzeuge besprechen, die dir Git zur Verfügung stellt. Du wirst zwar nicht unbedingt jeden Tag verwenden, aber mit Sicherheit an einem bestimmten Punkt gute brauchen können.
 
-## Revision Selection ##
 ## Revision Auswahl ##
 
 Git allows you to specify specific commits or a range of commits in several ways. They aren’t necessarily obvious but are helpful to know.
 
 Git erlaubt dir, Commits auf verschiedenste Art und Weise auszuwählen. Diese sind nicht immer offensichtlich, aber es ist hilfreich diese zu kennen.
 
-### Single Revisions ###
 ### Einzelne Revisionen ###
 
 You can obviously refer to a commit by the SHA-1 hash that it’s given, but there are more human-friendly ways to refer to commits as well. This section outlines the various ways you can refer to a single commit.
 
 Du kannst offensichtlich mithilfe des SHA-1 hash einen commit auswählen, aber es gibt auch Menschen freundlichere Methoden auf ein commit zu verweisen. Dieser Bereich skizziert die verschiedenen Wege, die man gehen kann um auf ein einzelnen commit zu referenzieren.
 
-### Short SHA ###
 ### Abgekürztes SHA ###
 
 Git is smart enough to figure out what commit you meant to type if you provide the first few characters, as long as your partial SHA-1 is at least four characters long and unambiguous — that is, only one object in the current repository begins with that partial SHA-1.
@@ -76,7 +72,6 @@ Generally, eight to ten characters are more than enough to be unique within a pr
 
 Generell kann man sagen das acht bis zehn Zeichen mehr als ausreichend in einem Projekt sind, um eindeutig zu bleiben. Eines der größten Git Projekte, der Linux kernel, fängt langsam an 12 von maximal 40 Zeichen zu nutzen um eindeutig zu bleiben.
 
-### A SHORT NOTE ABOUT SHA-1 ###
 ### EINE KURVE NOTIZ ÜBER SHA-1 ###
 
 A lot of people become concerned at some point that they will, by random happenstance, have two objects in their repository that hash to the same SHA-1 value. What then?
@@ -95,7 +90,6 @@ Here’s an example to give you an idea of what it would take to get a SHA-1 col
 
 Hier ist ein Beispiel welches dir eine Vorstellung davon geben wird was nötig ist um in SHA-1 eine Kollision zu bekommen. Wenn alle 6,5 Milliarden Menschen auf der Erde Programmieren würden und jeder jede Sekunde Code schreiben würde, der der gesamten Geschichte des Linux Kernels (1 Millionen Git Objekte) entspricht und diesen dann in ein gigantisches Git Repository übertragen würden, würde es fünf Jahre dauern bis das Repository genügend Objekte hätte um eine 50% Wahrscheinlichkeit für eine einzige SHA-1 Kollision aufzuweisen. Es ist wahrscheinlicher das jedes Mitglied deines Programmierer Teams, unabhängig voneinander, in einer Nacht von Wölfen angegriffen und getötet wird.
 
-### Branch References ###
 
 ### Branch Referenzen ###
 
@@ -113,7 +107,6 @@ Wenn du sehen willst, auf welchen SHA-1 Wert ein Branch zeigt, oder wie unsere B
 	$ git rev-parse topic1
 	ca82a6dff817ec66f44342007202690a93763949
 
-### RefLog Shortnames ###
 
 ### RefLog Kurznamen ###
 
@@ -175,7 +168,6 @@ It’s important to note that the reflog information is strictly local — it’
 
 Es ist wichtig zu verstehen, daß das Reflog ausschließlich lokale Daten enthält. Es ist ein Log darüber, was du in deinem Repository getan hast, und es ist nie dasselbe wie in einem anderen Clone des selben Repositories. Direkt nachdem du ein Repository geklont hast, ist das Reflog leer, weil noch keine weitere Aktivität stattgefunden hat. `git show HEAD@{2.months.ago}` funktioniert nur dann, wenn das Projekt mindestens zwei Monate alt ist - wenn du es vor fünf Minuten erst geklont hast, erhältst du keine Ergebnisse.
 
-### Ancestry References ###
 
 ### Vorfahren Referenzen ###
 
@@ -250,7 +242,6 @@ You can also combine these syntaxes — you can get the second parent of the pre
 
 Du kannst diese Schreibweisen auch kombinieren und z.B. auf den zweiten Vorfahren der obigen Referenz mit `HEAD~3^2` zugreifen.
 
-### Commit Ranges ###
 
 ### Commit Reihen ###
 
@@ -258,7 +249,6 @@ Now that you can specify individual commits, let’s see how to specify ranges o
 
 Nachdem du jetzt einzelne Commits spezifizieren kannst, schauen wir uns an, wie man auf Commit Reihen zugreift. Dies ist vor allem nützlich, um Branches zu verwalten, z.B. wenn man viele Branches hat und solche Fragen beantworten will wie "Welche Änderungen befinden sich in diesem Branch, die ich noch nicht in meinen Hauptbranch gemergt habe".
 
-#### Double Dot ####
 
 #### Zwei-Punkte Syntax ####
 
@@ -296,7 +286,6 @@ You can also leave off one side of the syntax to have Git assume HEAD. For examp
 
 Dieser Befehl zeigt dir alle Commits im gegenwärtigen, lokalen Branch, die noch nicht im `master` Branch des `origin` Repositories sind. D.h., der Befehl listet diejenigen Commits auf, die auf den Server transferiert würden, wenn du `git push` benutzt und der aktuelle Branch `origin/master` trackt. Du kannst mit dieser Syntax außerdem eine Seite der beiden Punkte leer lassen. Git nimmt dann an, du meinst an dieser Stelle HEAD. Z.B. kannst du dieselben Commits wie im vorherigen Beispiel auch mit `git log origin/master..` anzeigen lassen. Git fügt dann HEAD auf der rechten Seite ein.
 
-#### Multiple Points ####
 
 #### Mehrfache Punkte (xxx) ####
 
@@ -319,7 +308,6 @@ This makes for a very powerful revision query system that should help you figure
 
 Damit hast du ein sehr mächtiges System von Abfragen zur Verfügung, mit denen du herausfinden kannst, was in welchen deiner Branches enthalten ist.
 
-#### Triple Dot ####
 
 #### Drei-Punkte Syntax ####
 
@@ -352,7 +340,6 @@ With these tools, you can much more easily let Git know what commit or commits y
 
 Mit diesen Hilfsmitteln kannst du noch einfacher und genauer angeben, welche Commits du nachschlagen willst.
 
-## Interactive Staging ##
 
 ## Interaktives Stagen ##
 
@@ -380,7 +367,6 @@ After this comes a Commands section. Here you can do a number of things, includi
 
 Danach folgt eine Liste von Befehlen wie, u.a., Dateien ganz oder teilweise stagen und unstagen, nicht versionskontrollierte Dateien hinzufügen, Diffs der gestageten Änderungen anzeigen etc.
 
-### Staging and Unstaging Files ###
 
 ### Dateien stagen und unstagen (xxx) ###
 
@@ -483,7 +469,6 @@ With these basic commands, you can use the interactive add mode to deal with you
 
 Mit diesen grundlegenden Befehlen kannst du den interaktiven add Modus nutzen um dir den Umgang mit deiner Staging area etwas zu erleichtern.
 
-### Staging Patches ###
 
 ### Patches stagen ###
 

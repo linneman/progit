@@ -1,5 +1,3 @@
-# Git Internals #
-
 # Git Internas #
 
 You may have skipped to this chapter from a previous chapter, or you may have gotten here after reading the rest of the book — in either case, this is where you’ll go over the inner workings and implementation of Git. I found that learning this information was fundamentally important to understanding how useful and powerful Git is, but others have argued to me that it can be confusing and unnecessarily complex for beginners. Thus, I’ve made this discussion the last chapter in the book so you could read it early or later in your learning process. I leave it up to you to decide.
@@ -18,7 +16,6 @@ The content-addressable filesystem layer is amazingly cool, so I’ll cover that
 
 Die Dateisystem Ebene ist erstaunlich cool, weshalb ich in diesem Kapitel zuerst darauf eingehen werde. Als nächstes lernst du etwas über die Transport Mechanismen und Repository Wartungsaufgaben, mit denen du möglicherweise irgendwann zu tun bekommen wirst.
 
-## Plumbing and Porcelain ##
 
 ## Plumbing und Porcelain ##
 
@@ -53,7 +50,6 @@ This leaves four important entries: the `HEAD` and `index` files and the `object
 
 Damit bleiben vier wichtige Einträge übrig: die Dateien `HEAD` und `index` und die Verzeichnisse `objects` und `refs`. Dies sind die Kernkomponenten eines Git Repositories: Im `objects` Verzeichnis befinden sich die Inhalte der Datenbank. Das `refs` Verzeichnis enthält Referenzen auf Commit Objekte (Branches) in dieser Datenbank. Die Datei `HEAD` zeigt auf denjeningen Branch, den du gegenwärtig ausgecheckt hast, und in der Datei `index` verwaltet Git die Informationen der Staging Area. Wir werden auf diese Elemente jetzt im einzelnen darauf eingehen, so daß du nachvollziehen kannst, wie Git intern arbeitet.
 
-## Git Objects ##
 
 ## Git Objekte ##
 
@@ -146,7 +142,6 @@ Sich den SHA-1 Hash für jede Version merken zu müssen, ist allerdings nicht so
 	$ git cat-file -t 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a
 	blob
 
-### Tree Objects ###
 
 ### Baum Objekte ###
 
@@ -241,7 +236,6 @@ Figure 9-2. The content structure of your current Git data.
 
 Bild 9-2. Die Datenstruktur des gegenwärtigen Git Repositories.
 
-### Commit Objects ###
 
 ### Objekte committen ###
 
@@ -338,7 +332,6 @@ Figure 9-3. All the objects in your Git directory.
 
 Bild 9-3. Die Objekte im Beispielrepository.
 
-### Object Storage ###
 
 ### Objekt Speicher ###
 
@@ -394,7 +387,6 @@ That’s it — you’ve created a valid Git blob object. All Git objects are st
 
 Das ist alles - du hast jetzt ein valides Git Blob Objekt geschrieben. Git Objekte werden immer in dieser Weise gespeichert, lediglich mit verschiedenen Typen, d.h. anstelle des Strings "blob" wird der Header mit "commit" oder "tree" anfangen. Außerdem sind Commit und Tree Inhalte auf eine sehr spezifische Weise formatiert, während Blobs beliebige Inhalte sein können.
 
-## Git References ##
 
 ## Git Referenzen ##
 
@@ -461,7 +453,6 @@ When you run commands like `git branch (branchname)`, Git basically runs that `u
 
 Wenn du Befehle wie `git branch (branchname)` verwendest, führt Git intern im wesentlichen den `update-ref` Befehl aus, um den SHA-1 Hash des letzten Commits des jeweils gegenwärtigen Branches mit dem gegebenen Namen zu referenzieren.
 
-### The HEAD ###
 
 ### Der HEAD ###
 
@@ -505,7 +496,6 @@ Du kannst den Befehl allerdings nicht verwenden, um eine Referenz außerhalb von
 	$ git symbolic-ref HEAD test
 	fatal: Refusing to point HEAD outside of refs/
 
-### Tags ###
 
 ### Tags ###
 
@@ -554,7 +544,6 @@ in the Git source code. The Linux kernel also has a non-commit-pointing tag obje
 
 Der Linux Kernel hat also ein Tag Objekt, das nicht auf einen Commit zeigt - der erste Tag (xxx) zeigt auf den ursprünglichen Tree mit dem Import des Quellcodes (xxx what? xxx).
 
-### Remotes ###
 
 ### Externe Referenzen ###
 
@@ -584,7 +573,6 @@ Externe Referenzen unterscheiden sich von Branches (`refs/heads`) hauptsächlich
 
 ## Packfiles ##
 
-## xxx ##
 
 Let’s go back to the objects database for your test Git repository. At this point, you have 11 objects — 4 blobs, 3 trees, 3 commits, and 1 tag:
 
@@ -726,7 +714,6 @@ The really nice thing about this is that it can be repacked at any time. Git wil
 
 Außerdem ist toll, daß ein Repository jederzeit neu gepackt werden kann. Git macht das gelegentlich automatisch, um weniger Platz für die Datenbank zu verbrauchen. Du kannst sie aber auch jederzeit manuell mit `git gc` packen.
 
-## The Refspec ##
 
 ## Die Refspec ##
 
@@ -815,7 +802,6 @@ If you have a complex workflow process that has a QA team pushing branches, deve
 
 In einem großen Team mit einem komplexen Workflow, in dem ein QA Team, Entwickler und ein Integrations Team jeweils eigene Branches pushen, kann man auf diese Weise Branches einfach in Namensräume einteilen.
 
-### Pushing Refspecs ###
 
 ### Refspecs pushen ###
 
@@ -842,7 +828,6 @@ Again, this will cause a `git push origin` to push the local `master` branch to 
 
 Auf diese Weise wird `git push origin` den lokalen Branch `master` als `qa/master` auf dem `origin` Server speichern.
 
-### Deleting References ###
 
 ### Referenzen löschen ###
 
@@ -856,7 +841,6 @@ Because the refspec is `<src>:<dst>`, by leaving off the `<src>` part, this basi
 
 Das Refspec Format ist `<quelle>:<ziel>`. Wenn man den `<ziel>` Teil wegläßt, dann heißt das im obigen Beispiel, daß man den `topic` Branch auf dem `origin` Server auf "nichts" setzt, d.h. also löscht.
 
-## Transfer Protocols ##
 
 ## Transfer Protokolle ##
 
@@ -864,7 +848,6 @@ Git can transfer data between two repositories in two major ways: over HTTP and 
 
 Git kann Daten zwischen zwei Repositories im wesentlichen auf zwei Arten transportieren: über HTTP und über sogenannte smarte Protokolle, die mit `file://`, `ssh://` und `git://` verwendet wreden. Die folgende Sektion gibt einen kurzen Überblick über diese Protokolle und wie sie funktionieren.
 
-### The Dumb Protocol ###
 
 ### Das dumme Protokoll ###
 
@@ -983,7 +966,6 @@ Die Ausgabe des ganzen Vorgangs sieht dann in etwa so aus:
 	walk 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
 	walk a11bef06a3f659402fe7563abf99ad00de2209e6
 
-### The Smart Protocol ###
 
 ### Das Smart Protokoll (xxx) ####
 
@@ -991,7 +973,6 @@ The HTTP method is simple but a bit inefficient. Using smart protocols is a more
 
 Die HTTP Methode ist simpel, aber sie ist auch ein bißchen ineffizient. Deshalb ist es üblicher, ein smartes Protokoll für den Datentransfer zu verwenden. Diese Protokolle umfassen serverseitige Prozesse, die Wissen über Git besitzen. Sie können lokale Daten lesen und herausfinden, was auf dem Client schon vorhanden ist oder fehlt und darauf zugeschnitten Daten generieren. Es gibt zwei Sets von Prozessen für den Datentransfer: ein Paar für den Upload und ein Paar für den Download von Daten.
 
-#### Uploading Data ####
 
 #### Daten hochladen ####
 
@@ -1034,7 +1015,6 @@ Pro Referenz, die du aktualisierst, schickt Git eine Zeile mit dem alten SHA, de
 
 	000Aunpack ok
 
-#### Downloading Data ####
 
 #### Downloading Data ####
 
@@ -1085,7 +1065,6 @@ That is a very basic case of the transfer protocols. In more complex cases, the 
 
 Das ist ein sehr einfaches Beispiel. In komplexeren Fällen unterstützt der Client die `multi_ack` oder `side-band` Features. Aber obiges Beispiel verdeutlicht den grundlegenden Request-Response Zyklus der Smart Protokoll Prozesse.
 
-## Maintenance and Data Recovery ##
 
 ## Wartung und Datenwiederherstellung ##
 
@@ -1093,7 +1072,6 @@ Occasionally, you may have to do some cleanup — make a repository more compact
 
 Gelegentlich will man ein bißchen aufräumen - ein Repository verdichten, ein importiertes Repository entfernen (xxx) oder verloren gegangene Daten wieder herstellen. Dieses Kapitel wird sich mit einigen derartigen Szenarien befassen.
 
-### Maintenance ###
 
 ### Wartung ###
 
@@ -1141,7 +1119,6 @@ Notice the last line of the file, which begins with a `^`. This means the tag di
 
 Beachte, daß die letzte Zeile der Datei mit `^` anfängt. Das bedeutet, daß der Tag darüber ein annotierter Tag ist und diese Zeile zeigt den Commit, auf den der annotierte Tag zeigt.
 
-### Data Recovery ###
 
 ### Daten Wiederherstellung ###
 
@@ -1238,7 +1215,6 @@ In this case, you can see your missing commit after the dangling commit. You can
 
 In diesem Fall findest du den verlorenen Commit nach dem (xxx dangling xxx) Commit. Du kannst ihn dann auf die selbe Weise wieder herstellen wie zuvor, indem du einen Branch erstellst, der auf diesen Commit Hash zeigt.
 
-### Removing Objects ###
 
 ### Objekte entfernen ###
 
@@ -1372,7 +1348,6 @@ The packed repository size is down to 7K, which is much better than 2MB. You can
 
 Das gepackte Repository umfaßt jetzt nur noch 7K - sehr viel besser als die vorherigen 2MB. Du kannst an dem Wert `size` erkennen, daß sich die große Datei selbst jetzt immer noch in deinen loosen Objekten befindet. Aber sie wird bei einem `git push` oder anschließenden `git clone` nicht übermittelt werden - und das war unser Ziel. Wenn du das wirklich willst, kannst du sie jetzt vollständig und endgültig mit `git prune --expire` aus deinem Repository löschen.
 
-## Summary ##
 
 ## Zusammenfassung ##
 

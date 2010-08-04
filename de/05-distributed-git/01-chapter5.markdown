@@ -1,5 +1,3 @@
-# Distributed Git #
-
 # Distribuierte Arbeit mit Git (xxx) #
 
 Now that you have a remote Git repository set up as a point for all the developers to share their code, and you’re familiar with basic Git commands in a local workflow, you’ll look at how to utilize some of the distributed workflows that Git affords you.
@@ -10,15 +8,12 @@ In this chapter, you’ll see how to work with Git in a distributed environment 
 
 In diesem Kapitel wirst du lernen, wie du in einer distribuierten Umgebung als Entwickler Code zu einem Projekt beisteuern, als für Verantwortlicher Code von anderen ins Projekt übernehmen kannst und wie du das so gestalten kannst, daß es in einem Projekt mit einer großen Anzahl von Entwicklern für alle Beteiligten möglichst einfach ist.
 
-## Distributed Workflows ##
-
 ## Distribuierte Workflows ##
 
 Unlike Centralized Version Control Systems (CVCSs), the distributed nature of Git allows you to be far more flexible in how developers collaborate on projects. In centralized systems, every developer is a node working more or less equally on a central hub. In Git, however, every developer is potentially both a node and a hub — that is, every developer can both contribute code to other repositories and maintain a public repository on which others can base their work and which they can contribute to. This opens a vast range of workflow possibilities for your project and/or your team, so I’ll cover a few common paradigms that take advantage of this flexibility. I’ll go over the strengths and possible weaknesses of each design; you can choose a single one to use, or you can mix and match features from each.
 
 Anders als in zentralisierten Versionskontrollsystemen (CVCS) ermöglicht die Distribuiertheit von Git eine sehr viel flexiblere Zusammenarbeit von Entwicklern. In zentralisierten Systemen fungieren alle Beteiligten als gleichwertige Netzknoten, die in mehr oder weniger der gleichen Weise am zentralen Knotenpunkt (dem zentralen Repository) arbeiten. In Git dagegen ist jeder Beteiligten selbst potentiell zentraler Knotenpunkt. D.h. jeder Entwickler kann sowohl Code zu anderen Repositories beitragen und ein öffentliches Repository zur Verfügung stellen, an dem wiederum andere mitarbeiten. Das ermöglicht eine riesige Anzahl von Möglichkeiten, Arbeitsabläufe zu gestalten, die auf das jeweilige Projekt und/oder Team perfekt zugeschnitten sind. Wir werden auf einige übliche Paradigmen, die diese Flexibilität nutzen, und deren Vor- und Nachteile eingehen. Du kannst daraus ein Modell auswählen, oder du kannst sie miteinander kombinieren, um sie an deine eigenen Erfordernisse anzupassen.
 
-### Centralized Workflow ###
 
 ### Zentralisierter Workflow ###
 
@@ -40,8 +35,6 @@ This workflow is attractive to a lot of people because it’s a paradigm that ma
 
 In einem kleinen Team oder einem Team, das mit einem zentralisierten Workflow zufrieden ist, kann man diesen Workflow ohne weiteres mit Git realisieren. Man setzt einfach ein einziges Repository auf und gibt jedem im Team Schreibzugriff ("push access"). Git sorgt dann dafür, daß niemand die Arbeit von anderen überschreiben kann. Wenn ein Entwickler das Repository klont, Änderungen vornimmt und dann versucht ins zentrale Repository zu pushen, obwohl jemand anders in der Zwischenzeit Änderungen gepusht hat, dann wird der Server das zurückweisen. Dem Entwickler wird dann mitgeteilt, daß er versucht hat, sogeannte "non-fast-forward" Änderungen hochzuladen und daß er zuvor die Änderungen des anderen Entwicklers herunterladen und mit seinen zusammenführen muß. Viele Leute mögen diesen Arbeitsablauf, weil sie mit dem Paradigma bereits vertraut sind und sich damit wohl fühlen.
 
-
-### Integration-Manager Workflow ###
 
 ### Integration-Manager Workflow ###
 
@@ -72,7 +65,6 @@ This is a very common workflow with sites like GitHub, where it’s easy to fork
 
 Dies ist ein weit verbreiteter Arbeitsablauf wie ihn z.B. auch GitHub ermöglicht, wo man ein Projekt auf sehr einfache Weise forken und seine Änderungen in seinen eigenen Fork pushen kann, um sie anderen zur Verfügung zu stellen. Einer der Hauptvorteile dieser Vorgehensweise ist, daß man an seinem Fork jederzeit weiterarbeiten, der Betreiber des Projektes Änderungen aber auch jederzeit übernehmen kann. Mitarbieter müssen nicht darauf warten, daß der Betreiber Änderungen übernimmt - und jeder Beteiligte kann in seinem eigenen Rhythmus und Tempo arbeiten.
 
-### Dictator and Lieutenants Workflow ###
 
 ### Diktator und Leutnants Workflow ###
 
@@ -103,7 +95,6 @@ These are some commonly used workflows that are possible with a distributed syst
 
 Wir haben jetzt einige übliche Workflows besprochen, die in einem distribuierten System wie Git möglich sind. Natürlich kann man sie mannigfaltig abwandeln und miteinander kombinieren, um sie an ein spezielles reales Projekt und Team anzupassen. Nachdem du jetzt hoffentlich in der Lage bist, dir einen Workflow vorzustellen, der für dich selbst Sinn macht, gehen wir auf einige etwas spezifischere Beispiele ein und darauf, wie man die verschiedenen Rollen umsetzen kann, die die Workflows ausmachen.
 
-## Contributing to a Project ##
 
 ## An einem Projekt mitarbeiten ##
 
@@ -131,7 +122,6 @@ All these questions can affect how you contribute effectively to a project and w
 
 Die Antworten auf diese Fragen können maßgeblich beeinflussen, wie du effektiv an einem Projekt mitarbeiten kannst und welche Workflows du zur Auswahl hast. Wir werden verschiedene Aspekte davon in einer Reihe von Fallbeispielen besprechen, wobei wir mit simplen Beispielen anfangen und später komplexere Szenarios besprechen. Du wirst hoffentlich in der Lage sein, aus diesen Beispielen einen eigenen Workflow zu konstruieren, der deinen Anforderungen entspricht.
 
-### Commit Guidelines ###
 
 ### Commit Richtlinien ###
 
@@ -205,7 +195,6 @@ In the following examples, and throughout most of this book, for the sake of bre
 
 In den folgenden Beispielen hier und fast überall in diesem Buch verwende ich keine derartigen, schön formatierten Meldungen. Stattdessen verwende ich die `-m` Option zusammen mit `git commit`. Also folge meinen Worten, nicht meinem Beispiel.
 
-### Private Small Team ###
 
 ### Kleine Teams ###
 
@@ -422,7 +411,6 @@ Figure 5-11. General sequence of events for a simple multiple-developer Git work
 
 Bild 5-11. Ablauf eines einfachen Workflows für mehrere Entwickler
 
-### Private Managed Team ###
 
 ### Teil-Teams mit Integration Manager ###
 
@@ -589,7 +577,6 @@ Figure 5-15. Basic sequence of this managed-team workflow
 
 Bild 5-15. Workflow mit Teil-Teams und Integration Manager
 
-### Public Small Project ###
 
 ### Kleine, öffentliche Projekte ###
 
@@ -717,8 +704,6 @@ Figure 5-18. Commit history after featureBv2 work
 
 Bild 5-18. Commit Historie mit dem neuen `featureBv2` Branch
 
-### Public Large Project ###
-
 ### Große öffentliche Projekte ###
 
 Many larger projects have established procedures for accepting patches — you’ll need to check the specific rules for each project, because they will differ. However, many larger public projects accept patches via a developer mailing list, so I’ll go over an example of that now.
@@ -831,7 +816,6 @@ At this point, you should be able to go to your Drafts folder, change the To fie
 
 Jetzt solltest du in den Entwurfsordner deines E-Mail Clients gehen, als Empfänger Adresse die jeweilige Mailingliste angeben, möglicherweise ein CC an den Projektbetreiber oder einen anderen Verantwortlichen setzen und die E-Mail dann verschicken können.
 
-### Summary ###
 
 ### Zusammenfassung ###
 
@@ -839,7 +823,6 @@ This section has covered a number of common workflows for dealing with several v
 
 Wir haben jetzt eine Reihe von Workflows besprochen, die für jeweils sehr verschiedene Arten von Projekten üblich sind und denen du vermutlich begegnen wirst. Wir haben außerdem einige neue Tools besprochen, die dabei hilfreich sind, diese Workflows umzusetzen. Als nächstes werden wir auf die andere Seite dieser Medaille eingehen: wie du selbst ein Git Projekt betreiben kannst. Du wirst lernen, wie du als "wohlwollender Diktator" oder als Integration Manager arbeiten kannst.
 
-## Maintaining a Project ##
 
 ## Ein Projekt betreiben ##
 
@@ -847,7 +830,6 @@ In addition to knowing how to effectively contribute to a project, you’ll like
 
 Neben dem Wissen, das du brauchst, um zu einem bestehenden Projekt Änderungen beizutragen, wirst du vermutlich wissen wollen, wie du selbst ein Projekt betreiben kannst. Dazu willst du Patches akzeptieren und anwenden, die per `git format-patch` erzeugt und dir per E-Mail geschickt wurden. Oder du willst Änderungen aus externen Branches übernehmen, die du zu deinem Projekt hinzugefügt hast. Ob du nun für das Hauptrepository verantwortlich bist oder ob du dabei helfen willst, Patches zu verifizieren und zu bestätigen - in beiden Fällen mußt du wissen, wie du Änderungen in einer Weise übernehmen kannst, die für andere Mitarbeiter nachvollziehbar und für dich selbst tragbar ist.
 
-### Working in Topic Branches ###
 
 ### In Topic Branches arbeiten ###
 
@@ -868,7 +850,6 @@ Now you’re ready to add your contributed work into this topic branch and deter
 
 Nachdem du jetzt einen Topic Branch angelegt hast, kannst du die Änderungen zu diesem Branch hinzufügen, um herauszufinden, ob du sie dauerhaft in einen offiziellen Branch übernehmen willst.
 
-### Applying Patches from E-mail ###
 
 ### Patches aus E-Mails verwenden ###
 
@@ -876,7 +857,6 @@ If you receive a patch over e-mail that you need to integrate into your project,
 
 Wenn du einen Patch, den du auf dein Projekt anwenden willst, per E-Mail erhältst, gibt es zwei Möglichkeiten, das zu tun: `git apply` und `git am`.
 
-#### Applying a Patch with apply ####
 
 #### Einen Patch verwenden: git apply ###
 
@@ -902,7 +882,6 @@ If there is no output, then the patch should apply cleanly. This command also ex
 
 Wenn dieser Befehl nichts ausgibt, sollte der Befehl sauber anwendbar sein.
 
-#### Applying a Patch with am ####
 
 #### Einen Patch verwenden: git am ###
 
@@ -1041,7 +1020,6 @@ If you aren’t working with a person consistently but still want to pull from t
 	 * branch            HEAD       -> FETCH_HEAD
 	Merge made by recursive.
 
-### Determining What Is Introduced ###
 
 ### Neuigkeiten durchsehen ###
 
@@ -1106,7 +1084,6 @@ This command shows you only the work your current topic branch has introduced si
 
 Dieser Befehl zeigt dir diejenigen Änderungen, die im Topic Branch eingeführt wurden, die aber noch nicht in `master` enthalten sind.
 
-### Integrating Contributed Work ###
 
 ### Beiträge anderer integrieren ###
 
@@ -1114,7 +1091,6 @@ When all the work in your topic branch is ready to be integrated into a more mai
 
 Sobald du die Änderungen in deinem Topic Branch in einen dauerhafteren Branch übernehmen willst, fragt sich, wie du das anstellen kannst. Und welchen generellen Workflow willst du verwenden, um das Projekt zu pflegen? Wir werden eine Reihe von Möglichkeiten besprechen, die dir zur Verfügung stehen.
 
-#### Merging Workflows ####
 
 #### Merge Workflows ####
 
@@ -1160,7 +1136,6 @@ You can also continue this concept, having an integrate branch where all the wor
 
 Auf diese Weise kann jeder, der dein Repository klont, auf einfache Weise deinen aktuellen `master` Branch verwenden und ihn auf neue Releases aktualisieren. Oder er kann den `develop` Branch ausprobieren, in dem sich die jeweils letzten, brandneuen Änderungen befinden. Du kannst dieses Konzept noch weiterführen, indem du einen `integrate` Branch pflegst, in den neue Änderungen jeweils integriert werden. Sobald der Code in diesem Branch stabil zu sein scheint und alle Tests durchlaufen (xxx), übernimmst du die Änderungen in den `develop` Branch. Und wenn sie sich für eine Weile in der Praxis als stabil erwiesen haben, fast-forwardest (xxx) du den `master` Branch.
 
-#### Large-Merging Workflows ####
 
 #### Workflows für umfassende Merges ####
 
@@ -1186,7 +1161,6 @@ When a topic branch has finally been merged into `master`, it’s removed from t
 
 Wenn ein Topic Branch schließlich in `master` gemerged wird, wird er aus dem Repository gelöscht. Das Git Projekt hat außerdem einen `maint` Branch, der jeweils vom letzten Release verzweigt. In diesem Branch werden rückportierte Patches für den Fall gesammelt, daß ein Maintenance Release nötig ist. D.h., wenn du das Git Projekt Repository klonst, findest du vier Branches des Projektes in verschiedenen Stadien, die du jeweils ausprobieren kannst, je nachdem wie hochaktuellen Code du testen oder wie du zu dem Projekt beitragen willst. Und der Projekt Betreiber hat auf diese Weise einen klar strukturierten Workflow, der es einfacher macht, neue Beiträge zu prüfen und zu verarbeiten.
 
-#### Rebasing and Cherry Picking Workflows ####
 
 #### Rebase und Cherry Picking Workflows ####
 
@@ -1225,7 +1199,6 @@ Now you can remove your topic branch and drop the commits you didn’t want to p
 
 Jetzt kannst du den Topic Branch inklusive der ggf. darin enthaltenen Commits löschen, falls du sie nicht noch übernehmen willst.
 
-### Tagging Your Releases ###
 
 ### Releases taggen ###
 
@@ -1272,7 +1245,6 @@ They can use that key to verify all your signed tags. Also, if you include instr
 	
 Dieser Schlüssel kann anschließend für alle signierten Tages verwendet werden. Zusätzlich kannst du deinen Anwendern in der Tag Meldung erklären, wie sie signierte Tags mit diesem Schlüssel verifizieren können.
 
-### Generating a Build Number ###
 
 ### Eine Build Nummer generieren ###
 
@@ -1291,7 +1263,6 @@ The `git describe` command favors annotated tags (tags created with the `-a` or 
 
 Der `git describe` Befehl funktioniert mit kommentierten Tags besser (d.h. Tags, die mit dem `-a` oder `-s` Flag erzeugt wurden), so daß es sich empfiehlt, Release Tags auf diese Weise anzulegen, wenn man `git describe` verwenden will. Du kannst diese Bezeichner auch als Parameter für andere Git Befehle, z.B. `git checkout` oder `git show`, wobei Git allerdings lediglich auf den abgekürzten SHA-1 Hash am Ende achtet, so daß er möglicherweise nicht ewig gültig ist. Das Linux Kernel Projekt beispielsweise erhöhte die Anzahl der Zeichen in abgekürzten Hashes kürzlich von 8 auf 10, um die Eindeutigkeit von SHA-1 Hashes sicherzustellen. Ältere `git describe` Ausgaben wurden damit ungültig.
 
-### Preparing a Release ###
 
 ### Ein Release vorbereiten ###
 
@@ -1313,7 +1284,6 @@ You now have a nice tarball and a zip archive of your project release that you c
 
 Du hast jetzt sowohl einen Tarball als auch ein Zip Archiv deines Releases. Diese kannst du z.B. auf deiner Webseite publizieren oder auch per E-Mail verschicken.
 
-### The Shortlog ###
 
 ### Das Shortlog ###
 
@@ -1340,7 +1310,6 @@ You get a clean summary of all the commits since v1.0.1, grouped by author, that
 
 Du erhältst eine saubere Auflistung aller Commits seit `v1.0.1`, gruppiert nach Autor. Diese kannst du z.B. an die Mailingliste schicken oder irgendwie anders publizieren.
 
-## Summary ##
 
 ## Zusammenfassung ##
 

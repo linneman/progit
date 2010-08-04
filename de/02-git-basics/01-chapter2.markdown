@@ -1,20 +1,14 @@
-# Git Basics #
-
 # Git Grundlagen #
 
 If you can read only one chapter to get going with Git, this is it. This chapter covers every basic command you need to do the vast majority of the things you’ll eventually spend your time doing with Git. By the end of the chapter, you should be able to configure and initialize a repository, begin and stop tracking files, and stage and commit changes. We’ll also show you how to set up Git to ignore certain files and file patterns, how to undo mistakes quickly and easily, how to browse the history of your project and view changes between commits, and how to push and pull from remote repositories.
 
 Wenn Du nur ein einziges Kapitel aus diesem Buch lesen willst, um mit Git loslegen zu können, dann lies dieses hier. Wir werden hier auf diejenigen grundlegenden Git Befehle eingehen, die du für den allergrößten Teil deiner täglichen Arbeit mit Git brauchst. Am Ende des Kapitels solltest du in der Lage sein, ein neues Repository anzulegen und zu konfigurieren, Dateien zur Versionskontrolle hinzuzufügen und wieder aus ihr zu entfernen, Änderungen in der Staging Area für einen Commit vorzumerken und schließlich einen Commit durchzuführen. Wir werden außerdem besprechen, wie du Git so konfigurieren kannst, daß es bestimmte Dateien und Dateimuster ignoriert, wie du Fehler schnell und einfach rückgängig machen, wie du die Historie deines Projektes durchsuchen und Änderungen zwischen bestimmten Commits nachschlagen, und wie du in externe Repositories herauf- und von dort herunterladen kannst.
 
-## Getting a Git Repository ##
-
 ## Ein Git Repository anlegen ##
 
 You can get a Git project using two main approaches. The first takes an existing project or directory and imports it into Git. The second clones an existing Git repository from another server.
 
 Es gibt grundsätzlich zwei Möglichkeiten, ein Git Repository auf dem eigenen Rechner anzulegen. Erstens kann man ein existierendes Projekt oder Verzeichnis als ein neues Git Repository initialisieren. Zweitens kann man ein existierendes Repository von einem anderen Rechner, der als Server fungiert, auf den eigenen Rechner klonen.
-
-### Initializing a Repository in an Existing Directory ###
 
 ### Ein existierendes Verzeichnis als Git Repository initialisieren ###
 
@@ -39,8 +33,6 @@ Wenn in deinem Projekt bereits Dateien vorhanden sind (und es sich nicht nur um 
 We’ll go over what these commands do in just a minute. At this point, you have a Git repository with tracked files and an initial commit.
 
 Wir werden gleich noch einmal genauer auf diese Befehle eingehen. Im Moment ist nur wichtig zu verstehen, daß Du jetzt ein neues, funktionierendes Git Repository erzeugt und einen ersten Commit angelegt hast.
-
-### Cloning an Existing Repository ###
 
 ### Ein existierendes Repository klonen ###
 
@@ -68,8 +60,6 @@ Git has a number of different transfer protocols you can use. The previous examp
 
 Git unterstützt eine Reihe unterschiedlicher Übertragungsprotokolle, die du verwenden kannst. Das vorhergehende Beispiel verwendet das `git://` Protokoll, aber du wirst auch `http(s)://` oder `user@server:/path.git` finden, die das SSH Protokoll verwenden. In Kapitel 4 gehen wir auf die verschiedenen Optionen (und deren Vor- und Nachteile) ein, die ein Server hat, um Zugriff auf ein Git Repository zu erlauben.
 
-## Recording Changes to the Repository ##
-
 ## Änderungen am Repository nachverfolgen ##
 
 You have a bona fide Git repository and a checkout or working copy of the files for that project. You need to make some changes and commit snapshots of those changes into your repository each time the project reaches a state you want to record.
@@ -87,8 +77,6 @@ Sobald du versionierte Dateien bearbeitest, wird Git sie als modifiziert erkenne
 Insert 18333fig0201.png 
 Fig 2-1. The lifecycle of the status of your files
 Bild 2-1. Zyklus der Grundzustände deiner Dateien
-
-### Checking the Status of Your Files ###
 
 ### Den Zustand deiner Dateien prüfen ###
 
@@ -121,8 +109,6 @@ You can see that your new README file is untracked, because it’s under the “
 
 Daran, daß deine neue README Datei in der Sektion "Untracked files" aufgelistet wird, siehst du, daß sie noch nicht versioniert ist, oder mit anderen Worten, daß Git die Datei noch nicht aus dem letzten Snapshot (Commit) kennt. Git nimmt eine solche Datei nicht von sich aus in die Versionskontrolle auf, sondern du mußt das ausdrücklich anfordern. Der Grund dafür ist, daß Git nicht einfache alle möglichen binären Dateien oder anderen Dateien hinzufügen soll, die du nicht in deinem Repository haben willst. Du willst jetzt aber deine neues README Datei zur Versionskontrolle hinzufügen, also mußt du das explit tun.
 
-### Tracking New Files ###
-
 ### Neue Dateien zur Versionskontrolle hinzufügen ###
 
 In order to begin tracking a new file, you use the command `git add`. To begin tracking the README file, you can run this:
@@ -147,7 +133,7 @@ You can tell that it’s staged because it’s under the “Changes to be commit
 
 Daß die Datei für den nächsten Commit vorgemerkt ist, siehst du daran, daß sie in der Sektion "Changes to be committed" aufgelistet ist. Wenn du jetzt einen Commit anlegst, wird der Snapshot den Zustand der Datei beinhalten, in dem du den Befehl `git add` ausgeführt hast. Du erinnerst dich daran, daß du, als du vorhin `git init` ausgeführt hast, anschließend `git add` ausgeführt hast: an dieser Stelle hast du die Dateien in deinem Verzeichnis der Versionskontrolle hinzugefügt. Der `git add` Befehl akzeptiert einen Pfadnamen einer Datei oder eines Verzeichnisses. Wenn du ein Verzeichnis angibst, fügt `git add` alle Dateien in diesem Verzeichnis und allen Unterverzeichnissen rekursiv hinzu.
 
-### Staging Modified Files ###
+### Geänderte Dateien "Stagen" ###
 
 Let’s change a file that was already tracked. If you change a previously tracked file called `benchmarks.rb` and then run your `status` command again, you get something that looks like this:
 
@@ -213,8 +199,6 @@ Huch, was ist das? Jetzt wird `benchmarks.rb` sowohl als für den Commit vorgeme
 	#	modified:   benchmarks.rb
 	#
 
-### Ignoring Files ###
-
 ### Dateien ignorieren ###
 
 Often, you’ll have a class of files that you don’t want Git to automatically add or even show you as being untracked. These are generally automatically generated files such as log files or files produced by your build system. In such cases, you can create a file listing patterns to match them named .gitignore.  Here is an example .gitignore file:
@@ -265,8 +249,6 @@ Hier ist noch ein Beispiel für eine `.gitignore` Datei:
 	          # in Unterverzeichnissen
 	build/    # ignoriert alle Dateien im build/ Verzeichnis
 	doc/*.txt # ignoriert doc/notes.txt, aber nicht doc/server/arch.txt
-
-### Viewing Your Staged and Unstaged Changes ###
 
 ### Die Änderungen in der Staging Area durchsehen ###
 
@@ -387,8 +369,6 @@ Jetzt kannst du `git diff` verwenden, um zu sehen, was noch nicht für den näch
 	          log = git.commits('master', 15)
 	          log.size
 
-### Committing Your Changes ###
-
 ### Einen Commit anlegen ###
 
 Now that your staging area is set up the way you want it, you can commit your changes. Remember that anything that is still unstaged — any files you have created or modified that you haven’t run `git add` on since you edited them — won’t go into this commit. They will stay as modified files on your disk.
@@ -440,8 +420,6 @@ Remember that the commit records the snapshot you set up in your staging area. A
 
 Denke daran, daß jeder neue Commit denjenigen Snapshot aufzeichnet, den du in der Staging Area vorkonfiguriert hattest. Änderungen, die nicht in der Staging Area waren, werden weiterhin als modifizierte Dateien im Arbeitsverzeichnis vorliegen. Jedes Mal wenn du einen Commit anlegst, zeichnest du einen Snapshot Deines Projektes auf, zu dem du zurückkehren oder mit dem du spätere Änderungen vergleichen kannst.
 
-### Skipping the Staging Area ###
-
 ### Die Staging Area überspringen ###
 
 Although it can be amazingly useful for crafting commits exactly how you want them, the staging area is sometimes a bit more complex than you need in your workflow. If you want to skip the staging area, Git provides a simple shortcut. Providing the `-a` option to the `git commit` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the `git add` part:
@@ -462,8 +440,6 @@ Obwohl die Staging Area unglaublich nützlich ist, um genau diejenigen Commits a
 Notice how you don’t have to run `git add` on the benchmarks.rb file in this case before you commit.
 
 Beachte, daß du in diesem Fall `git add` zuvor noch nicht ausgeführt hast, die Änderungen an `benchmarks.rb` aber dennoch in den Commit übernommen werden.
-
-### Removing Files ###
 
 ### Dateien entfernen ###
 
@@ -526,8 +502,6 @@ This command removes all files that end with `~`.
 
 Dieser Befehl entfernt alle Dateien, die mit einer Tilde (`~`) aufhören.
 
-### Moving Files ###
-
 ### Dateien verschieben ###
 
 Unlike many other VCS systems, Git doesn’t explicitly track file movement. If you rename a file in Git, no metadata is stored in Git that tells it you renamed the file. However, Git is pretty smart about figuring that out after the fact — we’ll deal with detecting file movement a bit later.
@@ -566,8 +540,6 @@ Allerdings kannst du genau so gut etwas wie das hier tun:
 Git figures out that it’s a rename implicitly, so it doesn’t matter if you rename a file that way or with the `mv` command. The only real difference is that `mv` is one command instead of three — it’s a convenience function. More important, you can use any tool you like to rename a file, and address the add/rm later, before you commit.
 
 Git ist clever genug, selbst herauszufinden, daß du die Datei umbenannt hast. Du brauchst dies also nicht explizit mit dem `git mv` Befehl zu tun. Der einzige Unterschied ist, daß du mit `git mv` nur einen Befehl, nicht drei, ausführen mußt - das ist natürlich etwas bequemer. Darüberhinaus kannst du aber Dateien auf jede beliebige Art und Weise extern umbenennen und dann später `git add` bzw. `git rm` verwenden, wenn du einen Commit zusammenstellst.
-
-## Viewing the Commit History ##
 
 ## Die Commit Historie anzeigen ##
 
@@ -792,7 +764,7 @@ Das sind nur einige eher simple Format Optionen für die Ausgabe von `git log` -
 	--graph	Zeigt einen ASCII Graphen der Branch- und Merge-Historie neben der Ausgabe.
 	--pretty	Zeigt Commits in einem alternativen Format. Gültige Optionen sind: oneline, short, full, fuller und format (mit dem du dein eigenes Format spezifizieren kannst)
 
-### Limiting Log Output ###
+### Log-Ausgaben Begrenzen ###
 
 In addition to output-formatting options, git log takes a number of useful limiting options — that is, options that let you show only a subset of commits. You’ve seen one such option already — the `-2` option, which show only the last two commits. In fact, you can do `-<n>`, where `n` is any integer to show the last `n` commits. In reality, you’re unlikely to use that often, because Git by default pipes all output through a pager so you see only one page of log output at a time.
 	
@@ -851,8 +823,6 @@ Of the nearly 20,000 commits in the Git source code history, this command shows 
 
 Aus etwa 20.000 Commits in der Git Quellcode Historie filtert dieser Befehl gerade einmal 6 Commits heraus, die diesen Kriterien entsprechen.
 
-### Using a GUI to Visualize History ###
-
 ### Eine GUI verwenden um die Historie anzuzeigen ###
 
 If you like to use a more graphical tool to visualize your commit history, you may want to take a look at a Tcl/Tk program called gitk that is distributed with Git. Gitk is basically a visual `git log` tool, and it accepts nearly all the filtering options that `git log` does. If you type gitk on the command line in your project, you should see something like Figure 2-2.
@@ -868,15 +838,11 @@ You can see the commit history in the top half of the window along with a nice a
 
 Die Commit Historie wird in der oberen Hälfte des Fensters dargestellt, zusammen mit einem Graphen, der die Branches und Merges zeigt. Wenn du einen Commit anklickst, zeigt die Diff Anzeige in der unteren Hälfte des Fensters die jeweiligen Änderungen in diesem Commit.
 
-## Undoing Things ##
-
 ## Änderungen rückgängig machen ##
 
 At any stage, you may want to undo something. Here, we’ll review a few basic tools for undoing changes that you’ve made. Be careful, because you can’t always undo some of these undos. This is one of the few areas in Git where you may lose some work if you do it wrong.
 
 Es kommt immer wieder mal vor, daß du Änderungen rückgängig machen willst. Im Folgenden gehen wir auf einige grundlegende Möglichkeiten dazu ein. Sei allerdings vorsichtig damit, denn du kannst nicht immer alles wieder herstellen, was du rückgängig gemacht hast. Dies ist eine der wenigen Situationen in Git, in denen man Daten verlieren kann, wenn man es falsch macht.
-
-### Changing Your Last Commit ###
 
 ### Den letzten Commit ändern ###
 
@@ -905,8 +871,6 @@ Wenn du beispielsweise einen Commit angelegt hast und dann feststellst, daß du 
 All three of these commands end up with a single commit — the second command replaces the results of the first.
 
 Diese drei Befehle legen einen einzigen neuen Commit an - der letzte Befehl ersetzt dabei das Ergebnis des ersten Befehls.
-
-### Unstaging a Staged File ###
 
 ### Änderungen aus der Staging Area nehmen ###
 
@@ -948,8 +912,6 @@ The command is a bit strange, but it works. The benchmarks.rb file is modified b
 
 Der Befehl liest sich zunächst vielleicht etwas merkwürdig, aber wie du siehst, funktioniert er. Die Datei benchmarks.rb ist jetzt geändert, aber nicht in der Staging Area.
 
-### Unmodifying a Modified File ###
-
 ### Eine Änderung an einer Datei rückgängig machen ###
 
 What if you realize that you don’t want to keep your changes to the benchmarks.rb file? How can you easily unmodify it — revert it back to what it looked like when you last committed (or initially cloned, or however you got it into your working directory)? Luckily, `git status` tells you how to do that, too. In the last example output, the unstaged area looks like this:
@@ -984,16 +946,12 @@ Remember, anything that is committed in Git can almost always be recovered. Even
 
 Beachte, daß was auch immer jemals in einem Commit in Git enthalten war, fast immer wieder hergestellt werden kann. Selbst Commits, die sich in gelöschten Branches befanden, oder Commits, die mit einem `--amend` Commit überschrieben wurden, können wieder hergestellt werden (siehe Kapitel 9 für Datenrettung). Allerdings wirst du Änderungen, die es nie in einen Commit geschafft haben, wahrscheinlich auch nie wieder bekommen können. (xxx Mantra: commit early and often xxx)
 
-## Working with Remotes ##
-
 ## Mit externen Repositories arbeiten ##
 
 To be able to collaborate on any Git project, you need to know how to manage your remote repositories. Remote repositories are versions of your project that are hosted on the Internet or network somewhere. You can have several of them, each of which generally is either read-only or read/write for you. Collaborating with others involves managing these remote repositories and pushing and pulling data to and from them when you need to share work.
 Managing remote repositories includes knowing how to add remote repositories, remove remotes that are no longer valid, manage various remote branches and define them as being tracked or not, and more. In this section, we’ll cover these remote-management skills.
 
 Um mit anderen via Git zusammenarbeiten zu können, mußt du wissen, wie du auf externe ("remote") Repositories zugreifen kannst. Externe Repositories sind Versionen deines Projektes, die im Internet oder irgendwo in einem anderen Netzwerk gespeichert sind. Du kannst mehrere solcher Repositories haben und du kannst jedes davon entweder nur lesen oder lesen und schreiben. Mit anderen via Git zusammenzuarbeiten impliziert, solche Repositories zu verwalten und Daten aus ihnen herunter- oder heraufzuladen, um deine Arbeit für andere verfügbar zu machen. Um externe Repositories zu verwalten, muß man wissen, wie man sie anlegt und wieder entfernt, wenn sie nicht mehr verwendet werden, wie man externe Branches verwalten und nachverfolgen kann, und mehr. In diesem Kapitel werden wir auf diese Aufgaben eingehen.
-
-### Showing Your Remotes ###
 
 ### Externe Repositories anzeigen ###
 
@@ -1035,8 +993,6 @@ This means we can pull contributions from any of these users pretty easily. But 
 
 D.h., mein lokales Repository kennt die Repositories von all diesen Leuten und ich kann ihre Beiträge zu meinem Projekt ganz einfach herunterladen und zum Projekt hinzufügen.
 
-### Adding Remote Repositories ###
-
 ### Externe Repositories hinzufügen ###
 
 I’ve mentioned and given some demonstrations of adding remote repositories in previous sections, but here is how to do it explicitly. To add a new remote Git repository as a shortname you can reference easily, run `git remote add [shortname] [url]`:
@@ -1067,8 +1023,6 @@ Paul’s master branch is accessible locally as `pb/master` — you can merge it
 
 Paul's master Branch ist jetzt lokal auf deinem Rechner als `pb/master` verfügbar - du kannst ihn mit einem deiner eigenen Branches zusammenführen oder auf einen lokalen Branch wechseln, um damit zu arbeiten.
 
-### Fetching and Pulling from Your Remotes ###
-
 ### Aus externen Repositories herunterladen und ziehen ###
 
 As you just saw, to get data from your remote projects, you can run
@@ -1089,8 +1043,6 @@ If you have a branch set up to track a remote branch (see the next section and C
 
 Wenn du allerdings einen Branch so aufgesetzt hast, daß er einem externen Branch "folgt" (also einen "Tracking Branch", wir werden im nächsten Abschnitt und in Kapitel 3 noch genauer darauf eingehen), dann kannst du den Befehl `git pull` verwenden, um automatisch neue Daten herunterzuladen *und* den externen Branch gleichzeitig mit dem aktuellen, lokalen Branch zusammenzuführen. Das ist oft die bequemere Arbeitsweise. `git clone` setzt deinen lokalen master Branch deshalb standardmäßig so auf, daß er dem externen master Branch des geklonten Repositories folgt (sofern das externe Repository einen master Branch hat). Wenn du dann `git pull` ausführst, wird Git die neuen Commits aus dem externen Repository holen und versuchen, sie automatisch mit dem Code zusammenzuführen, an dem du gerade arbeitest.
 
-### Pushing to Your Remotes ###
-
 ### Änderungen in ein externes Repository hochladen ###
 
 When you have your project at a point that you want to share, you have to push it upstream. The command for this is simple: `git push [remote-name] [branch-name]`. If you want to push your master branch to your `origin` server (again, cloning generally sets up both of those names for you automatically), then you can run this to push your work back up to the server:
@@ -1102,8 +1054,6 @@ Wenn du mit deinem Projekt an einen Punkt gekommen bist, an dem du es anderen zu
 This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to pull down their work first and incorporate it into yours before you’ll be allowed to push. See Chapter 3 for more detailed information on how to push to remote servers.
 
 Das funktioniert nur dann, wenn du Schreibrechte für das jeweilige Repository hast und niemand anders in der Zwischenzeit irgendwelche Änderungen hochgeladen hat. Wenn zwei Leute ein Repository zur gleichen Zeit klonen, dann zuerst der eine seine Änderungen hochlädt und der zweite anschließend versucht, das gleiche zu tun, dann wird sein Versuch korrekterweise abgewiesen. In dieser Situation muß man neue Änderungen zunächst herunterladen und mit seinen eigenen zusammenführen, um sie dann erst hochzuladen. In Kapitel 3 gehen wir noch einmal ausführlicher darauf ein.
-
-### Inspecting a Remote ###
 
 ### Ein externes Repository inspizieren ###
 
@@ -1154,8 +1104,6 @@ This command shows which branch is automatically pushed when you run `git push` 
 
 Dieser Befehl zeigt, welcher Branch automatisch hochgeladen werden wird, wenn du `git push` auf bestimmten Branches ausführst. Er zeigt außerdem, welche Branches es im externen Repository gibt, die du selbst noch nicht hast, welche Branches dort gelöscht wurden, und Branches, die automatisch mit lokalen Branches zusammengeführt werden, wenn du `git pull` ausführst.
 
-### Removing and Renaming Remotes ###
-
 ### Verweise auf externe Repositories löschen und umbenennen ###
 
 If you want to rename a reference, in newer versions of Git you can run `git remote rename` to change a remote’s shortname. For instance, if you want to rename `pb` to `paul`, you can do so with `git remote rename`:
@@ -1181,13 +1129,9 @@ Wenn du eine Referenz aus irgendeinem Grund entfernen willst (z.B. weil du den S
 
 ## Tagging ##
 
-## Tagging ##
-
 Like most VCSs, Git has the ability to tag specific points in history as being important. Generally, people use this functionality to mark release points (v1.0, and so on). In this section, you’ll learn how to list the available tags, how to create new tags, and what the different types of tags are.
 
 Wie die meisten anderen VCS kann Git bestimmte Punkte in der Historie als besonders wichtig markieren, also taggen. Normalerweise verwendet man diese Funktionalität, um Release Versionen zu markieren (z.B. v1.0). In diesem Abschnitt gehen wir darauf ein, wie du die vorhandenen Tags anzuzeigen und neue Tags erstellen kannst, und worin die Unterschiede zwischen verschiedenen Typen von Tags bestehen.
-
-### Listing Your Tags ###
 
 ### Vorhandene Tags anzeigen ###
 
@@ -1213,15 +1157,11 @@ Du kannst auch nach Tags mit einem bestimmten Muster suchen. Das Git Quellcode R
 	v1.4.2.3
 	v1.4.2.4
 
-### Creating Tags ###
-
 ### Neue Tags anlegen ###
 
 Git uses two main types of tags: lightweight and annotated. A lightweight tag is very much like a branch that doesn’t change — it’s just a pointer to a specific commit. Annotated tags, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, e-mail, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). It’s generally recommended that you create annotated tags so you can have all this information; but if you want a temporary tag or for some reason don’t want to keep the other information, lightweight tags are available too.
 
 Git kennt im wesentlichen zwei Typen von Tags: leichte und kommentierte (xxx) ("lightweight" und "annotated") Tags. Ein leichter Tag ist ein Branch, der sich niemals ändert - es ist lediglich ein Zeiger auf einen bestimmten Commit. Kommentierte Tags dagegen werden als vollwertige Objekte in der Git Datenbank gespeichert. Sie haben eine Checksumme, beinhalten Namen und E-Mail Adresse desjenigen, der den Tag angelegt hat, das jeweilige Datum sowie eine Meldung. Sie können überdies mit GNU Privacy Guard (GPG) signiert und verifiziert werden. Generell empfiehlt sich deshalb, kommentierte Tags anzulegen. Wenn man aber aus irgendeinem Grund einen temporären Tag anlegen will, für den all diese zusätzlichen Informationen nicht nötig sind, dann kann man auf leichte Tags zurückgreifen.
-
-### Annotated Tags ###
 
 ### Kommentierte Tags (xxx) ###
 
@@ -1259,8 +1199,6 @@ You can see the tag data along with the commit that was tagged by using the `git
 That shows the tagger information, the date the commit was tagged, and the annotation message before showing the commit information.
 
 Die Ausgabe listet also zunächst die Informationen über denjenigen, der den Tag angelegt hat, sowie die Tag Meldung und dann die Commit Informationen selbst.
-
-### Signed Tags ###
 
 ### Signierte Tags ###
 
@@ -1301,8 +1239,6 @@ A bit later, you’ll learn how to verify signed tags.
 
 Darauf, wie du signierte Tags verifizieren kannst, werden wir gleich noch eingehen.
 
-### Lightweight Tags ###
-
 ### Leichte Tags (xxx) ###
 
 Another way to tag commits is with a lightweight tag. This is basically the commit checksum stored in a file — no other information is kept. To create a lightweight tag, don’t supply the `-a`, `-s`, or `-m` option:
@@ -1328,8 +1264,6 @@ Wenn du jetzt `git show` auf den Tag ausführst, siehst du keine der zusätzlich
 	Date:   Sun Feb 8 19:02:46 2009 -0800
 
 	    Merge branch 'experiment'
-
-### Verifying Tags ###
 
 ### Tags verifizieren ###
 
@@ -1358,8 +1292,6 @@ Wenn du den öffentlichen Schlüssel des Signierenden nicht in deinem Schlüssel
 	gpg: Signature made Wed Sep 13 02:08:25 2006 PDT using DSA key ID F3119B9A
 	gpg: Can't check signature: public key not found
 	error: could not verify the tag 'v1.4.2.1'
-
-### Tagging Later ###
 
 ### Nachträglich taggen ###
 
@@ -1410,8 +1342,6 @@ Du siehst jetzt, daß du einen Tag für den Commit angelegt hast:
 	    updated rakefile
 	...
 
-### Sharing Tags ###
-
 ### Tags hochladen (xxx) ###
 
 By default, the `git push` command doesn’t transfer tags to remote servers. You will have to explicitly push tags to a shared server after you have created them.  This process is just like sharing remote branches – you can run `git push origin [tagname]`.
@@ -1446,15 +1376,12 @@ Now, when someone else clones or pulls from your repository, they will get all y
 
 Wenn jetzt jemand anderes das Repository klont oder von dort aktualisiert, wird er all diese Tags ebenfalls erhalten.
 
-## Tips and Tricks ##
 
 ## Tipps und Tricks ###
 
 Before we finish this chapter on basic Git, a few little tips and tricks may make your Git experience a bit simpler, easier, or more familiar. Many people use Git without using any of these tips, and we won’t refer to them or assume you’ve used them later in the book; but you should probably know how to do them.
 
 Bevor wir an das Ende dieses Grundlagen Kapitels kommen, noch einige Tipps und Tricks, die dir den Umgang mit Git ein bißchen vereinfachen können. Du kannst Git natürlich einsetzen, ohne diese Tipps anzuwenden, und wir werden später in diesem Buch auch nicht darauf Bezug nehmen oder sie voraussetzen. Aber wir finden, du solltest sie kennen, weil sie einfach nützlich sind.
-
-### Auto-Completion ###
 
 ### Auto-Vervollständigung ###
 
@@ -1493,8 +1420,6 @@ Das funktioniert auch mit Optionen - was oftmals noch hilfreicher ist. Wenn du b
 That’s a pretty nice trick and may save you some time and documentation reading.
 
 Das erspart dir, viel Zeit mit dem Nachschlagen in der Dokumentation zu verbringen.
-
-### Git Aliases ###
 
 ### Git Aliase ###
 
@@ -1548,8 +1473,6 @@ As you can tell, Git simply replaces the new command with whatever you alias it 
 Wie du dir denken kannst, ersetzt Git ganz einfach den Alias mit dem jeweiligen Befehl, für den er definiert ist. Wenn du allerdings einen externen Befehl anstelle eines Git Subbefehls ausführen willst, kannst du den Befehl mit einem Auführungszeichen (`!`) anfangen. Das ist in der Regel nützlich, wenn du deine eigenen Hilfsmittel schreibst, um Git zu erweitern. Wir können das demonstrieren, indem wir `git visual` als `gitk` definieren:
 
 	$ git config --global alias.visual "!gitk"
-
-## Summary ##
 
 ## Zusammenfassung ##
 

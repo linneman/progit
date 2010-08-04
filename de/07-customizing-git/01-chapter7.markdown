@@ -1,11 +1,9 @@
-# Customizing Git #
 # Git Personalisieren #
 
 Ich habe nun die grundlegende Funktionsweise und die Benutzung von Git besprochen. Weiterhin habe ich einige Werkzeuge von Git eingefuehrt, die dem Benutzer ein einfaches und effizientes Arbeiten erlauben sollen. In diesem Kapitel werde ich nun auf einige Operationen eingehen, die Du benutzen kannst, um die Funktionsweise von Git Deinen persönlichen Beduerfnissen anzupassen. Dazu fuhre ich einige wichtige Konfigurationseinstellungen ein, sowie das Schnittstellen-System, auch Hooks genannt. Mit diesen Mitteln ist es einfach Git so anzupassen, dass es genau den Anspruechen des Benutzers, des Unternehmens oder des Teams entspricht.
 
 So far, I’ve covered the basics of how Git works and how to use it, and I’ve introduced a number of tools that Git provides to help you use it easily and efficiently. In this chapter, I’ll go through some operations that you can use to make Git operate in a more customized fashion by introducing several important configuration settings and the hooks system. With these tools, it’s easy to get Git to work exactly the way you, your company, or your group needs it to.
 
-## Git Configuration ##
 ## Git Konfiguration ##
 
 Wie Du in Kapitel 1 kurz gesehen hast, kann man die Konfiguration von Git mit dem Befehl `git config` steuern. Eine Deiner ersten Aktionen war es, Deinen Namen und Deine e-mail Adresse anzugeben:
@@ -31,7 +29,6 @@ Als letztes sucht Git in der Konfigurationsdatei im Git Verzeichnis (`.git/confi
 
 Finally, Git looks for configuration values in the config file in the Git directory (`.git/config`) of whatever repository you’re currently using. These values are specific to that single repository. Each level overwrites values in the previous level, so values in `.git/config` trump those in `/etc/gitconfig`, for instance. You can also set these values by manually editing the file and inserting the correct syntax, but it’s generally easier to run the `git config` command.
 
-### Basic Client Configuration ###
 ### Grundlegende Client Konfiguration ###
 
 Die von Git verwendeten Konfigurationsoptionen teilen sich in zwei Kategorien: den Client und den Server. Der Grossteil der Optionen beziehen sich auf den Client — zur Konfiguration Deines persönlichen Arbeitsflusses. Auch wenn es eine grosse Menge an Optionen gibt werde ich nur die wenigen besprechen, die sehr gebräuchlich sind oder die Deine Arbeitsweise bedeutend beeinflussen können. Viele Optionen sind nur fuer Spezialfälle nuetzlich, die ich hier nicht auffuehren werde. Falls Du eine Liste aller Optionen sehen willst, fuehre den folgenden  Befehl aus
@@ -299,7 +296,6 @@ Wenn Du diesen Befehl ausfuehrst statt die `extMerge` und `extDiff` Dateien zu e
 
 If you run this instead of setting up the `extMerge` and `extDiff` files, Git will use KDiff3 for merge resolution and the normal Git diff tool for diffs.
 
-### Formatting and Whitespace ###
 ### Formatierung und Fuellzeichen ###
 
 Formatierungen und Fuellzeichen -- also Tabulatorzeichen, Leerzeichen und Steuerzeichen fuer Zeilenwechsel (LF) und Zeilen- oder Wagenruecklauf (CR) -- fuehren zu einigen der frustrierendsten und subtilsten Probleme denen viele Entwickler begegnen, wenn sie mit anderen zusammenarbeiten, speziell ueber Plattformgrenzen hinweg. Es kann sehr leicht passieren, dass bei Patches oder anderer gemeinsamer Arbeit kaum merklich Fuellzeichen hinzugefuegt werden, sei es weil ein Entwickler sie unnwissentlich einfuegt, oder weil ein Windows Programmierer bei plattformuebergreifenden Projekten einen Zeilenruecklauf am Zeilenende von Dateien anfuegt. Git hat einige Konfigurationseinstellungen die bei diesen Problemen helfen.
@@ -417,7 +413,6 @@ Dies verbietet grundsätzlich das Löschen eines Branches oder einer Marke (Tag)
 
 This denies branch and tag deletion over a push across the board — no user can do it. To remove remote branches, you must remove the ref files from the server manually. There are also more interesting ways to do this on a per-user basis via ACLs, as you’ll learn at the end of this chapter.
 
-## Git Attributes ##
 ## Git Attribute ###
 
 Einige dieser Einstellungen können auch auf bestimmte Pfade eingeschränkt werden, so dass sie nur fuer bestimmte Unterverzeichnisse oder Untergruppen von Dateien gueltig sind. Diese Einstellungen werden Git Attribute genannt und werden entweder in `.gitattributes` in einem der Projektverzeichnisse eingerichtet (ueblicherweise im Rootverzeichnis Deines Projektes), oder in der `.git/info/attributes` Datei, wenn Du nicht möchtest, dass die Attribute mit Deinem Projekt comitted werden.
@@ -428,14 +423,12 @@ Mit Hilfe von Attributen kannst Du Einstellungen vornehmen wie zum Beispiel vers
 
 Using attributes, you can do things like specify separate merge strategies for individual files or directories in your project, tell Git how to diff non-text files, or have Git filter content before you check it into or out of Git. In this section, you’ll learn about some of the attributes you can set on your paths in your Git project and see a few examples of using this feature in practice.
 
-### Binary Files ###
 ### Binärdateien ###
 
 Ein nuetzlicher Trick den die Git Attribute erlauben ist Git mitzuteilen, welche Dateien Binär sind (fuer den Fall dass Git nicht in der Lag ist, das selbst festzustellen), und Git spezielle Anweisungen zu geben, wie diese Dateien behandelt werden sollen. Zum Beispiel können gewisse Textdateien Computergeneriert und damit nicht diff-bar sein, und umgekehrt können manche Binärdateien diff-bar sein — Du wirst sehen wie Du Git sagst welche Datei welche ist.
 
 One cool trick for which you can use Git attributes is telling Git which files are binary (in cases it otherwise may not be able to figure out) and giving Git special instructions about how to handle those files. For instance, some text files may be machine generated and not diffable, whereas some binary files can be diffed — you’ll see how to tell Git which is which.
 
-#### Identifying Binary Files ####
 #### Binärdateien erkennen ####
 
 Einige Dateien sehen aus wie Textdateien, aber streng genommen als Binärdateien behandelt werden sollten. So enthalten zum Beispiel Xcode Projekte auf dem Mac eine Datei mit der Endung `.pbxproj`, die eigentlich nur ein JSON (ein Klartext Javascript Dateiformat) Datensatz ist, der von der IDE gespeichert wird und Deine Build Einstellungen und ähnliches enthält. Selbst wenn es technisch gesehen eine Textdatei ist, da sie komplett ASCII ist, willst Du sie nicht wirklich als solche behandeln, denn es ist eigentlich eine minimalistische Datenbank — man kann mit den Inhalten kein Merge ausfuehren, wenn zwei Leute die Datei geändert haben, und ein Diff ist selten hilfreich. Die Datei ist fuer die Verarbeitung durch den Computer gedacht. Kurz gesagt, Du willst sie als Binärdatei behandeln.
@@ -453,7 +446,6 @@ Now, Git won’t try to convert or fix CRLF issues; nor will it try to compute o
 
 	*.pbxproj binary
 
-#### Diffing Binary Files ####
 #### Diff bei Binärdateien ####
 
 Bei 1.6er Versionen von Git ist es möglich, die Funktionalität von Git Attributen zu benutzen, um mit Diff effektiv Unterschiede zwischen Binärdateien zu inspizieren. Du kannst das erreichen, indem Du Git anweist, wie Deine Binärdaten in ein Textformat konvertiert werden können, das dann mittels normalem Diff verglichen werden kann.
@@ -540,7 +532,6 @@ Man sieht direkt, dass sowohl Dateigrösse als auch die Bilddimensionen verände
 
 You can easily see that the file size and image dimensions have both changed.
 
-### Keyword Expansion ###
 ### Schluesselworte Erweitern ###
 
 Entwickler, die an SVN- oder CVS-ähnliche Systeme gewoehnt sind, fragen oft nach der Möglichkeit Schluesselwoerter zu erweitern oder zu ersetzen. Das grösste Problem hierbei ist bei Git, dass eine Datei nach einem Commit nicht mehr mit Informationen ueber den Commit verändert werden kann, da Git bereits vorher die Pruefsumme berechnet. Allerdings kann man Text in eine Datei einfuegen, wenn sie ausgecheckt wird, und diesen Text wieder entfernen, bevor sie zu einem Commit hinzugefuegt wird. Git Attribute bieten hierfuer zwei Möglichkeiten an. 
@@ -634,7 +625,6 @@ Du siehst wie mächtig diese Technik fuer personalisierte Anwendungen sein kann.
 
 You can see how powerful this technique can be for customized applications. You have to be careful, though, because the `.gitattributes` file is committed and passed around with the project but the driver (in this case, `dater`) isn’t; so, it won’t work everywhere. When you design these filters, they should be able to fail gracefully and have the project still work properly.
 
-### Exporting Your Repository ###
 ### Exportieren Deines Repositories ###
 
 Git Attribute erlauben auch einige interessante Dinge, wenn Du Dein Projekt in ein Archiv exportierst.
@@ -675,7 +665,6 @@ When you run `git archive`, the contents of that file when people open the archi
 	$ cat LAST_COMMIT
 	Last commit date: $Format:Tue Apr 21 08:38:48 2009 -0700$
 
-### Merge Strategies ###
 ### Merge Strategien ###
 
 Du kannst Git auch anweisen verschiedene Regeln fuer das Zusammenfuehren bestimmter Dateien in Deinem Projekt zu verwenden. Eine besonders nuetzliche Option ist es, Git so einzustellen, dass es bei bestimmten Dateien kein Zusammenfuehren von Konfliktstellen versucht, sondern Deine Seite des Merge der anderen Seite vorzieht.
@@ -701,13 +690,11 @@ In diesem Fall bleibt database.xml in der Version, die Du urspruenglich hattest.
 In this case, database.xml stays at whatever version you originally had.
 
 ## Git Hooks ##
-## Git Hooks ##
 
 Genau wie viele andere Versionskontrollsysteme gibt es auch bei Git die Möglichkeit eigene Skripte zu starten, wenn bestimmte wichtige Ereignisse eintreten. Es gibt zwei Gruppen dieser Schnittstellen, allgemein "Hook" genannt: auf Seiten des Clients und des Servers. Die Client-seitigen Hooks dienen Operationen bei einem Client, zum Beispiel bei Commits oder Merges. Die Server-seitigen Hooks dienen Git Server Operationen wie den Empfang von hochgeladenen Commits. Ma kann diese Schnittstellen aus diversen Gruenden benutzen, und einige davon wirst Du hier kennenlernen.
 
 Like many other Version Control Systems, Git has a way to fire off custom scripts when certain important actions occur. There are two groups of these hooks: client side and server side. The client-side hooks are for client operations such as committing and merging. The server-side hooks are for Git server operations such as receiving pushed commits. You can use these hooks for all sorts of reasons, and you’ll learn about a few of them here.
 
-### Installing a Hook ###
 ### Installieren eines Hooks ###
 
 Sämtliche Hooks werden im `hooks` Unterverzeichnis des Git Verzeichnisses gespeichert. In den meisten Projekten wird das `.git/hooks` sein. Git fuellt dieses Verzeichnis standardmässig mit Beispielskripten, von denen einige unverändert bereits nuetzlich sind; aber sie dokumentieren ausserdem die Eingabewerte jedes Skriptes. Alle Beispiele sind als Shellskripte mit etwas Perl hier und da geschrieben, aber jedes passend benannte Skript wird funktionieren — Du kannst sie in Ruby der Python schreiben, oder was immer Du bevorzugst. Bei Git Versionen nach 1.6 haben diese Beispieldateien die Endung .sample; sie muessen umbenannt werden. Bei Versionen vor 1.6 sind die Beispieldateien korrekt benannt, aber nicht ausfuehrbar.
@@ -718,14 +705,12 @@ Um ein Hook-Skript zu aktivieren, speichere eine entsprechend benannte und ausfu
 
 To enable a hook script, put a file in the `hooks` subdirectory of your Git directory that is named appropriately and is executable. From that point forward, it should be called. I’ll cover most of the major hook filenames here.
 
-### Client-Side Hooks ###
 ### Client-seitige Hooks ###
 
 Es gibt eine Menge Hooks auf Seiten des Clients. Dieser Abschnitt teilt sie in Hooks fuer einen Commit-Arbeitsablauf, Skripte bezogen auf e-Mail und den Rest der Client-seitigen Skripte.
 
 There are a lot of client-side hooks. This section splits them into committing-workflow hooks, e-mail–workflow scripts, and the rest of the client-side scripts.
 
-#### Committing-Workflow Hooks ####
 #### Hooks fuer einen Commit Arbeitsablauf ####
 
 Die ersten vier Hooks hängen mit dem Commit Prozess zusammen. Der `pre-commit` Hook wird zuerst ausgefuehrt, schon bevor Du die Commit Nachricht eingegeben hast. Es wird benutzt, um den Snapshot zu pruefen, der den Commit ausmacht, um festzustellen ob Du etwas vergessen hast, um sicherzustellen das Tests ausgefuehrt wurden, oder um den Code zu inspizieren, aus welchem Grunde Du ihn auch untersuchen willst. Wenn das entsprechende Skript einen Wert ungleich Null zurueckgibt, wird der Commit abgebrochen, aber es kann mit `git commit --no-verify` umgangen werden. Du kannst Dinge machen wie den Code Stil untersuchen (lint ausfuehren oder etwas entsprechendes), auf Leerzeichen am Zeilenende pruefen (der Standard-Hook macht genau das), oder bei neuen Methoden nach entsprechender Dokumentation suchen.
@@ -748,7 +733,6 @@ Diese Client-seitigen Skripte fuer den Commit Arbeitsablauf können auch fuer so
 
 The committing-workflow client-side scripts can be used in just about any workflow. They’re often used to enforce certain policies, although it’s important to note that these scripts aren’t transferred during a clone. You can enforce policy on the server side to reject pushes of commits that don’t conform to some policy, but it’s entirely up to the developer to use these scripts on the client side. So, these are scripts to help developers, and they must be set up and maintained by them, although they can be overridden or modified by them at any time.
 
-#### E-mail Workflow Hooks ####
 #### Hooks fuer E-mail Arbeitsablauf ####
 
 Fuer einen e-Mail basierten Arbeitsablauf kannst Du drei Client-seitige Hooks einrichten. Sie werden alle mit dem Befehl `git am` aufgerufen, wenn Du diesen Befehl also in Deinem normalen Arbeitsablauf nicht verwendest, kannst Du zum nächsten Abschnitt springen. Falls Du Patches per e-Mail erhältst, die mit `git format-patch` erstellt wurden, könnten trotzdem einige dieser Skripte fuer Dich nuetzich sein.
@@ -767,7 +751,6 @@ Der letzte Hook, der während des `git am` Operation ausgefuehrt wird ist `post-
 
 The last hook to run during a `git am` operation is `post-applypatch`. You can use it to notify a group or the author of the patch you pulled in that you’ve done so. You can’t stop the patching process with this script.
 
-#### Other Client Hooks ####
 #### Andere Hooks fuer den Client ####
 
 Der `pre-rebase` Hook wird ausgefuehrt, bevor ein Rebase irgendetwas verändert, und er kann den Prozess durch einen Exit-Wert ungleich Null abbrechen. Du kannst diesen Hook benutzen, um zu verhindern, dass bereits hochgeladene Commits auf einen anderen Branch umbasiert werden. Der von Git installierte Beispiel-Hook fuer `pre-rebase`macht genau das, allerdings nimmt dieser an, dass der Name des veröffentlichten Branches 'next' ist. Du wirst das wahrscheinlich in den Namen umändern muessen, der Deinem stabilen, öffentlichen Branch entspricht.
@@ -782,14 +765,12 @@ Abschliessend wird noch der `post-merge` Hook nach einem erfolgreichen `merge` a
 
 Finally, the `post-merge` hook runs after a successful `merge` command. You can use it to restore data in the working tree that Git can’t track, such as permissions data. This hook can likewise validate the presence of files external to Git control that you may want copied in when the working tree changes.
 
-### Server-Side Hooks ###
 ### Serverseitige Hooks ###
 
 Neben den Client-seitigen Hooks kannst Du als System Administrator noch einige wichtige Hooks auf Seiten des Servers einsetzen, um so ziemlich jede Art von Richtlinie fuer Dein Projekt zu erzwingen. Diese Skripte werden ausgefuehrt bevor und nachdem Daten auf den Server hochgeladen wurden. Die vorgelagerten Hooks können jederzeit mit einem Ruckgabewert ungleich Null abbrechen und somit das Hochladen verweigern und dem Client eine Fehlermeldung zurueckliefern; eine von Dir eingerichtete Push-Richtlinie kann so komplex sein, wie Du willst.
 
 In addition to the client-side hooks, you can use a couple of important server-side hooks as a system administrator to enforce nearly any kind of policy for your project. These scripts run before and after pushes to the server. The pre hooks can exit non-zero at any time to reject the push as well as print an error message back to the client; you can set up a push policy that’s as complex as you wish.
 
-#### pre-receive and post-receive ####
 #### pre-receive und post-receive ####
 
 Das erste Skript, dass ausgefuehrt wird, wenn ein Push von einem Client empfangen wird ist `pre-receive`. Es akzeptiert eine Liste von Referenzen, die ueber 'stdin' hochgeladen werden; wird es mit einem Wert ungleich Null beendet, so wird keine von ihnen akzeptiert. Du kannst diesen Hook benutzen, um sicherzustellen, dass keine der aktualisierten Referenzen Nicht-'fast-forwards' sind; oder um zu pruefen, dass der hochladende Benutzer die Berechtigung zum Erstellen, Löschen oder Hochladen hat, oder die Berechtigung Aktualisierungen fuer alle Dateien hochzuladen, die er mit dem Push verändert.

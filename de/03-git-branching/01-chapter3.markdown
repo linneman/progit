@@ -7,7 +7,6 @@ Es gibt Leute, die bezeichnen das branching Modell in Git als sein "killer featu
 Some people refer to the branching model in Git as its “killer feature,” and it certainly sets Git apart in the VCS community. Why is it so special? The way Git branches is incredibly lightweight, making branching operations nearly instantaneous and switching back and forth between branches generally just as fast. Unlike many other VCSs, Git encourages a workflow that branches and merges often, even multiple times in a day. Understanding and mastering this feature gives you a powerful and unique tool and can literally change the way that you develop.
 
 ## Was eine Branch ist ##
-## What a Branch Is ##
 
 Um den Weg des branching in Git richtig zu verstehen, müssen wir eine Schritt zurück machen und untersuchen, wie Git die Daten speichert. Wie du sicher noch aus Kapitel 1 weisst, speichert Git nicht eine Reihe von Änderungen und Unterschiede, sondern immer in Form von Snapshots, also aktuelle Sichten auf den Code. 
 To really understand the way Git does branching, we need to take a step back and examine how Git stores its data. As you may remember from Chapter 1, Git doesn’t store data as a series of changesets or deltas, but instead as a series of snapshots.
@@ -126,7 +125,7 @@ This is in sharp contrast to the way most VCS tools branch, which involves copyi
 Lass uns anschauen, wie du das machen kannst.
 Let’s see why you should do so.
 
-## Basic Branching and Merging ##
+## Grundlagen zur Branch- und Merge-Erstellung ##
 
 Lass uns das Ganze an einem Beispiel durchgehen, dessen Workflow zum Thema Branching und Zusammenführen du im echten Leben verwenden kannst. Folge einfach diesen Schritten:
 Let’s go through a simple example of branching and merging with a workflow that you might use in the real world. You’ll follow these steps:
@@ -151,7 +150,6 @@ At this stage, you’ll receive a call that another issue is critical and you ne
 4.	Switch back to your original story and continue working.
 
 ### Branching Grundlagen ###
-### Basic Branching ###
 
 <!--
     TODO    progress-begin: 2010-03-25 - florianb
@@ -309,7 +307,6 @@ An dieser Stelle ist anzumerken, dass die Änderungen an dem `hotfix`-Branch nic
 -->
 
 ### Die Grundlagen des Zusammenführens (Mergen) ###
-### Basic Merging ###
 
 Angenommen du entscheidest dich, dass deine Arbeit an issue #53 getan ist und du diese mit der `master` Branch zusammenführen möchtest. Das passiert, indem du ein `merge` in die `iss53` Branch machst, ähnlich dem `merge` mit der `hotfix` Branch von vorhin. Alles was du machen musst, ist ein `checkout` der Branch, in die du das `merge` machen willst und das Ausführen des Kommandos `git merge`:
 Suppose you’ve decided that your issue #53 work is complete and ready to be merged into your `master` branch. In order to do that, you’ll merge in your `iss53` branch, much like you merged in your `hotfix` branch earlier. All you have to do is check out the branch you wish to merge into and then run the `git merge` command:
@@ -343,7 +340,6 @@ Now that your work is merged in, you have no further need for the `iss53` branch
 	$ git branch -d iss53
 
 ### Grundlegende 'merge' Konflikte ###
-### Basic Merge Conflicts ###
 
 Gelegentlich verläuft der Prozess nicht ganz so glatt. Wenn du an den selben Stellen in den selben Dateien unterschiedlicher Branches etwas geändert hast, kann Git diese nicht sauber zusammenführen. Wenn dein Fix an 'issue #53' die selbe Stelle in einer Datei verändert hat, die du auch mit `hotfix` angefasst hast, wirst du einen 'merge' Konflikt erhalten, der ungefähr so aussehen könnte:
 Occasionally, this process doesn’t go smoothly. If you changed the same part of the same file differently in the two branches you’re merging together, Git won’t be able to merge them cleanly. If your fix for issue #53 modified the same part of a file as the `hotfix`, you’ll get a merge conflict that looks something like this:
@@ -477,7 +473,6 @@ Jetzt da du die Grundlagen von 'branching' und 'merging' kennst, fragst du dich 
 Now that you have the basics of branching and merging down, what can or should you do with them? In this section, we’ll cover some common workflows that this lightweight branching makes possible, so you can decide if you would like to incorporate it into your own development cycle.
 
 ### Langfristige Branches ###
-### Long-Running Branches ###
 
 Da Git das einfachen 3-Wege-'merge' verwendet, ist häufiges Zusammenführen von einer Branch in eine andere über einen langen Zeitraum generell einfach zu bewerkstelligen. Das heisst, du kann mehrere Branches haben, die alle offen sind und auf unterschiedlichen Ebenen deines Entwicklungszyklus verwendung finden, und diese regelmäßig ineinander zusammenführen.
 Because Git uses a simple three-way merge, merging from one branch into another multiple times over a long period is generally easy to do. This means you can have several branches that are always open and that you use for different stages of your development cycle; you can merge regularly from some of them into others.
@@ -511,7 +506,6 @@ You can keep doing this for several levels of stability. Some larger projects al
 Again, having multiple long-running branches isn’t necessary, but it’s often helpful, especially when you’re dealing with very large or complex projects.
 
 ### Themen-Branches ###
-### Topic Branches ###
 
 Themen-Branches sind in jedem Projekt nützlich, gleich welcher Größe. Ein Themen-Branch ist ein kurzlebiger Zweig den du für eine spezielle Aufgabe oder ähnliche Arbeiten erstellst und benutzt. Das ist vielleicht etwas was du noch nie zuvor mit einem Versionierungssystem gemacht hast, weil es normalerweise zu aufwändig und mühsam ist Branches zu erstellen und zusammenzuführen. Mit Git ist es allerdings vollkommen geläufig am mehrmals am Tag Branches zu erstellen, an ihnen zu arbeiten, sie zusammenzuführen und sie anschließend wieder zu löschen.
 
@@ -549,7 +543,6 @@ Es ist wichtig sich daran zu erinnern, dass all diese Branches komplett lokal si
 It’s important to remember when you’re doing all this that these branches are completely local. When you’re branching and merging, everything is being done only in your Git repository — no server communication is happening.
 
 ## Externe Branches ##
-## Remote Branches ##
 
 Externe Branches sind Referenzen auf den Zustand der Branches in deinen externen Repositorys. Es sind lokale Branches die du nicht verändern kannst, sie werden automatisch verändert wann immer du eine Netzwerkoperation durchführst. Externe Branches verhalten sich wie Lesezeichen, um dich daran zu erinnern an welcher Position sich die Branches in deinen externen Repositories befanden, als du dich zuletzt mit ihnen verbunden hattest.
 
@@ -622,7 +615,6 @@ Figure 3-26. You get a reference to teamone’s master branch position locally.
 
 
 ### Hochladen ###
-### Pushing ###
 
 Wenn du einen Branch mit der Welt teilen möchtest, musst du ihn auf einen externen Server laden, auf dem du Schreibrechte besitzt. Deine lokalen Zweige werden nicht automatisch mit den Remote-Servern synchronisiert wenn du etwas änderst - du musst die zu veröffentlichenden Branches explizit hochladen. Auf diesem Weg kannst du an privaten Zweigen arbeiten die du nicht veröffentlichen möchtest, und nur die Themen-Branches replizieren an denen du gemeinsam mit anderen entwickeln möchtest.
 

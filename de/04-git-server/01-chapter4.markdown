@@ -1,4 +1,3 @@
-# Git on the Server #
 # Git auf dem Server #
 
 At this point, you should be able to do most of the day-to-day tasks for which you’ll be using Git. However, in order to do any collaboration in Git, you’ll need to have a remote Git repository. Although you can technically push changes to and pull changes from individuals’ repositories, doing so is discouraged because you can fairly easily confuse what they’re working on if you’re not careful. Furthermore, you want your collaborators to be able to access the repository even if your computer is offline — having a more reliable common repository is often useful. Therefore, the preferred method for collaborating with someone is to set up an intermediate repository that you both have access to, and push to and pull from that. We’ll refer to this repository as a "Git server"; but you’ll notice that it generally takes a tiny amount of resources to host a Git repository, so you’ll rarely need to use an entire server for it.
@@ -17,7 +16,6 @@ A remote repository is generally a _bare repository_ — a Git repository that h
 
 Ein externes Repository ist im Allgemeinen ein _einfaches Repository_ - ein Git Repository ohne Arbeitsverzeichnis. Weil das Repository nur als Zusammenarbeitspunkt genutzt wird, gibt es keinen Grund, einen Schnappschuss ausgecheckt auf der Festplatte zu haben; es sind nur die Git Daten. Mit einfachen Begriffen, ein einfaches Repository ist der Inhalt von deinem `.git` Verzeichnis in deinem Projekt und nichts anderes.
 
-## The Protocols ##
 ## Die Protokolle ##
 
 Git can use four major network protocols to transfer data: Local, Secure Shell (SSH), Git, and HTTP. Here we’ll discuss what they are and in what basic circumstances you would want (or not want) to use them.
@@ -28,7 +26,6 @@ It’s important to note that with the exception of the HTTP protocols, all of t
 
 Es ist wichtig zu beachten, dass alle Protokolle mit Ausnahme von HTTP eine funktionierende Git Installation auf dem Server benötigen.
 
-### Local Protocol ###
 ### Lokales Protokoll ###
 
 The most basic is the _Local protocol_, in which the remote repository is in another directory on disk. This is often used if everyone on your team has access to a shared filesystem such as an NFS mount, or in the less likely case that everyone logs in to the same computer. The latter wouldn’t be ideal, because all your code repository instances would reside on the same computer, making a catastrophic loss much more likely.
@@ -61,7 +58,6 @@ Then, you can push to and pull from that remote as though you were doing so over
 
 Dann kannst du von einem externen Repository pushen und pullen, obwohl du das über ein Netzwerk machst.
 
-#### The Pros ####
 #### Die Vorteile ####
 
 The pros of file-based repositories are that they’re simple and they use existing file permissions and network access. If you already have a shared filesystem to which your whole team has access, setting up a repository is very easy. You stick the bare repository copy somewhere everyone has shared access to and set the read/write permissions as you would for any other shared directory. We’ll discuss how to export a bare repository copy for this purpose in the next section, “Getting Git on a Server.”
@@ -72,7 +68,6 @@ This is also a nice option for quickly grabbing work from someone else’s worki
 
 Dies ist auch eine nette Möglichkeit zum Schnellen besorgen von Arbeit aus dem Arbeitsverzeichnis von jemand anderem. Wenn du und ein Kollege an dem gleichen Projekt arbeitet und ihr wollt etwas auschecken, ein Befehl wie `git pull /home/john/project` ist oft einfacher als das pushen zu einem externen Server und das pullen zurück.
 
-#### The Cons ####
 #### Die Nachteile ####
 
 The cons of this method are that shared access is generally more difficult to set up and reach from multiple locations than basic network access. If you want to push from your laptop when you’re at home, you have to mount the remote disk, which can be difficult and slow compared to network-based access.
@@ -83,7 +78,6 @@ It’s also important to mention that this isn’t necessarily the fastest optio
 
 Es ist auch wichtig zu erwähnen, dass dies nicht unbedingt die schnellste Möglichkeit ist, wenn du ein gemeinsames Dateisystem oder ähnliches hast. Ein lokales Repository ist nur dann schnell, wenn du schnellen Zugriff auf die Daten hast. Ein NFS-basiertes Repository ist oftmals langsamer als ein Repository über SSH auf dem gleichen Server, weil Git über SSH auf jedem System auf den lokalen Festplatten arbeitet.
 
-### The SSH Protocol ###
 ### Das SSH Protokoll ###
 
 Probably the most common transport protocol for Git is SSH. This is because SSH access to servers is already set up in most places — and if it isn’t, it’s easy to do. SSH is also the only network-based protocol that you can easily read from and write to. The other two network protocols (HTTP and Git) are generally read-only, so even if you have them available for the unwashed masses, you still need SSH for your own write commands. SSH is also an authenticated network protocol; and because it’s ubiquitous, it’s generally easy to set up and use.
@@ -106,7 +100,6 @@ You can also not specify a user, and Git assumes the user you’re currently log
 
 Du kannst auch keinen Benutzer angeben, und Git nimmt den Benutzer an, als der du gerade eingeloggt bist.
 
-#### The Pros ####
 
 #### Die Vorteile ####
 
@@ -114,7 +107,6 @@ The pros of using SSH are many. First, you basically have to use it if you want 
 
 Die Vorteile von SSH sind vielseitig. Erstens, grundlegend musst du es benutzen, wenn du authentifizierten Schreib-Zugriff auf dein Repository über ein Netzwerk haben möchtest. Zweitens, SSH ist relativ einfach einzurichten - SSH-Dämonen sind alltäglich, viele Netzwerk-Administratoren haben Erfahrungen mit ihnen und viele Betriebssysteme sind mit ihnen eingerichtet oder haben Tools um sie zu verwalten. Als nächstes, Zugriff über SSH ist sicher - der gesamte Daten-Transfer ist verschlüsselt und authentifiziert. Als letztes, wie Git und die Lokalen Protokolle, SSH ist effizient, es macht die Daten so kompakt wie möglich bevor es die Daten überträgt.
 
-#### The Cons ####
 
 #### Die Nachteile ####
 
@@ -122,7 +114,6 @@ The negative aspect of SSH is that you can’t serve anonymous access of your re
 
 Die negative Seite von SSH ist, dass du deine Repositories nicht anonym darüber anbieten kannst. Die Leute müssen Zugriff auf deine Maschine über SSH haben um zuzugreifen, auch mit einem Nur-Lese-Zugriff, was SSH nicht zuträglich zu Open-Source-Projekten macht. Wenn du es nur innerhalb von deinem Firmen-Netzwerk benutzt, SSH ist vielleicht das einzige Protokoll mit dem du arbeiten musst. Wenn du anonymen Nur-Lese-Zugriff zu deinen Projekten erlauben willst, musst du SSH für dich einsetzen um zu pushen, aber ein anderes Protokoll für andere um zu pullen.
 
-### The Git Protocol ###
 
 ### Das Git Protokoll ###
 
@@ -130,15 +121,12 @@ Next is the Git protocol. This is a special daemon that comes packaged with Git;
 
 Als nächstes kommt das Git Protokoll. Das ist ein spezieller Dämon, der zusammen mit Git kommt. Er horcht auf einem bestimmten Port (9418), dieser Service ist vergleichbar mit dem SSH-Protokoll, aber ohne jegliche Authentifizierung. Um ein Repository über das Git Protokoll, musst du die `gitk-export-daemon-ok` Datei erstellen - der Dämon bietet kein Repository ohne die Datei darin an - außer dieser Datei gibt es keine Sicherheit. Entweder das Git Repository ist für jeden zum Clonen verfügbar oder halt nicht. Das bedeutet, dass dieses Protokoll generell kein push anbietet. Du kannst push-Zugriff aktivieren; aber ohne Authentifizierung, wenn du den push-Zugriff aktivierst, kann jeder im Internet, der deine Projekt-URL findet, zu deinem Projekt pushen. Ausreichend zu sagen, dass das selten ist.
 
-#### The Pros ####
-
 #### Die Vorteile ####
 
 The Git protocol is the fastest transfer protocol available. If you’re serving a lot of traffic for a public project or serving a very large project that doesn’t require user authentication for read access, it’s likely that you’ll want to set up a Git daemon to serve your project. It uses the same data-transfer mechanism as the SSH protocol but without the encryption and authentication overhead.
 
 Das Git Protokoll ist das schnellste verfügbare Transfer Protokoll. Wenn du viel Traffic für ein öffentliches Projekt hast oder ein sehr großes Projekt hast, dass keine Benutzer-Authentifizierung für den Lese-Zugriff voraussetzt, es ist üblich einen Git Dämon einzurichten, der dein Projekt serviert. Er benutzt den selben Daten-Transfer Mechanismus wie das SSH-Protokoll, aber ohne den Entschlüsselungs- und Authentifizierungs-Overhead.
 
-#### The Cons ####
 
 #### Die Nachteile ####
 
@@ -148,7 +136,6 @@ It’s also probably the most difficult protocol to set up. It must run its own 
 Die Unterseite von dem Git Protokoll ist das fehlen der Authentifizierung. Es ist generell unerwünscht, dass das Git Protokoll der einzige Zugang zu dem Projekt ist. Im Allgemeinen willst du es mit SSH-Zugriff für die Entwickler paaren, die push (Schreib) Zugriff haben und jeder andere benutzt `git://` für Nur-Lese-Zugriff.
 Es ist vielleicht auch das das schwierigste Protokoll beim Einrichten. Es muss ein eigener Dämon laufen, welcher Git-spezifisch ist - wir wollen im “Gitosis”-Abschnitt in diesem Kapitel schauen, wie man einen einrichtet - es setzt eine `xinetd`-Konfiguration oder ähnliches voraus, das ist nicht immer wie ein Spaziergang im Park. Es setzt auch einen Firewall-Zugriff auf den Port 9418 voraus, das ist kein Standard-Port, den Firmen-Firewalls immer erlauben. Hinter einer großen Firmen-Firewall ist dieser unklare Port häufig gesperrt.
 
-### The HTTP/S Protocol ###
 
 ### Das HTTP/S Protokoll ###
 
@@ -176,7 +163,6 @@ It’s possible to make Git push over HTTP as well, although that technique isn�
 
 Es ist möglich, Git-Daten auch über HTTP zu pushen, trotzdem wird diese Technik nicht oft eingesetzt und es setzt komplexe WebDAV-Anforderungen voraus. Weil es selten genutzt wird, werden wir das nicht in diesem Buch behandeln. Wenn du Interesse am HTTP-Push-Protokoll hast, kannst du das Einrichten unter `http://www.kernel.org/pub/software/scm/git/docs/howto/setup-git-server-over-http.txt` nachlesen. Eine Schöne Sache über Git-Push über HTTP ist, dass du jeden WebDAV-Server benutzen kannst, ohne spezifische Git-Features; also kannst du diese Funktionalität nutzen, wenn dein Web-Hosting-Provider WebDAV unterstützt, um Änderungen auf deine Webseite zu schreiben.
 
-#### The Pros ####
 
 #### Die Vorteile ####
 
@@ -192,7 +178,6 @@ Another nice thing is that HTTP is such a commonly used protocol that corporate 
 
 Eine andere schöne Sache ist, dass HTTP so oft genutzt wird, dass Firmen-Firewalls oft Traffic über den HTTP-Port erlauben.
 
-#### The Cons ####
 
 #### Die Nachteile ####
 
@@ -200,8 +185,7 @@ The downside of serving your repository over HTTP is that it’s relatively inef
 
 Die Unterseite vom Servieren von deinem Repository über HTTP ist, dass es recht ineffizient für den Client ist. Es braucht im Allgemeinen länger zu clonen oder Daten vom Repository zu holen und du hast oft wesentlich mehr Netzwerk-Overhead und Transfer-Volumen als mit jedem anderen Netzwerk Protokoll. Weil es nicht so intelligent beim Daten-Transfer ist, um nur die benötigten Daten zu übertragen - es gibt keine dynamische Arbeit auf dem Server bei diesen Aktionen - das HTTP Protokoll wird oft als _dummes_ Protokoll bezeichnet. Für mehr Informationen über die Unterschiede bei der Effizienz zwischen dem HTTP Protokoll und den anderen Protokollen: siehe Kapitel 9.
 
-## Getting Git on a Server ##
-
+## Git auf dem Server zum Laufen bringen ##
 In order to initially set up any Git server, you have to export an existing repository into a new bare repository — a repository that doesn’t contain a working directory. This is generally straightforward to do.
 In order to clone your repository to create a new bare repository, you run the clone command with the `--bare` option. By convention, bare repository directories end in `.git`, like so:
 
